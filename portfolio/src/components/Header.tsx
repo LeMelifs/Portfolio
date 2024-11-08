@@ -11,11 +11,6 @@ const HeaderContainer = styled.header`
   background-color: #DCDCDC;
   border-bottom: 2px solid #d0d0d0;
   color: #fff;
-
-  @media (max-width: 768px) {
-    flex-direction: column;
-    padding: 1rem;
-  }
 `;
 
 const Logo = styled(Link)`
@@ -29,22 +24,12 @@ const Logo = styled(Link)`
   &:hover {
     color: #696969;
   }
-
-  @media (max-width: 768px) {
-    font-size: 1.2rem;
-  }
 `;
 
 
 const Nav = styled.nav`
   display: flex;
   gap: 2.2rem;
-
-  @media (max-width: 768px) {
-    flex-direction: column;
-    align-items: center;
-    gap: 1rem;
-  }
 `;
 
 
@@ -52,6 +37,7 @@ const StyledLink = styled(Link)`
   color: #808080;
   font-family: DejaVu Sans Mono, monospace;
   font-weight: bold;
+  transition: color 0.3s;
   text-decoration: none;
   font-size: 1rem;
 

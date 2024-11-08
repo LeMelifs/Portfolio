@@ -1,13 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 import MyPhoto from '../assets/MyPhoto.jpg';
-
-const HomeContainer = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  padding: 20px;
-`;
+import PageContainer from "../components/PageContainer.tsx";
 
 const ProfileImage = styled.img`
   width: 370px;
@@ -37,7 +31,7 @@ const Info = styled.p`
 
 const Home: React.FC = () => {
   return (
-    <HomeContainer>
+    <PageContainer>
       <ProfileImage src={MyPhoto}  />
         <Name>Veronika Blokhina <span style={{ color: "#5F9EA0" }}>→</span> LeMelifs <span style={{ color: "#5F9EA0" }}>❤</span></Name>
         <br/>
@@ -48,7 +42,7 @@ const Home: React.FC = () => {
             Также я работаю в научно-исследовательском центре "Русгидро" на должности <span style={{ color: "#5F9EA0", fontWeight: "bold" }}>
             fullstack web-разработчика</span> в отделе предиктивной аналитики. На данном сайте я расскажу о себе, своём опыте и навыках
             в сфере IT. Приятного прочтения!</Info>
-    </HomeContainer>
+    </PageContainer>
   );
 };
 
