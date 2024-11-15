@@ -1,10 +1,10 @@
 import styled from "styled-components";
 
 
-const Card = styled.div`
+const Card = styled.div<{ width?: string }>`
   height: auto;
   border-radius: 20px;
-  width: 60vw;
+  width: ${({ width }) => width || '60vw'};;
   background-color: #DCDCDC;
   display: flex;
   border: 2px solid #d0d0d0;
