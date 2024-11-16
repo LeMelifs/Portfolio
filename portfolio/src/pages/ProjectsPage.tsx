@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, {useMemo, useState} from 'react';
 import styled from 'styled-components';
 import { projects } from '../data/projects';
 import { Project } from '../types/Project';
@@ -125,13 +125,15 @@ export const Projects = () => {
   const [selectedTech, setSelectedTech] = useState<string>('All');
   const [selectedProject, setSelectedProject] = useState<Project | null>(null);
 
-  const filteredProjects = projects.filter((project) =>
-    selectedTech === 'All' ? true : project.technologies.includes(selectedTech)
-  );
+  const uniqueTechnologies = useMemo(() => {
+    return Array.from(new Set(projects.flatMap((project) => project.technologies)));
+  }, []);
 
-  const uniqueTechnologies = Array.from(
-    new Set(projects.flatMap((project) => project.technologies))
-  );
+  const filteredProjects = useMemo(() => {
+    return projects.filter((project) =>
+      selectedTech === 'All' ? true : project.technologies.includes(selectedTech)
+    );
+  }, [selectedTech]);
 
   const handleModalClose = () => setSelectedProject(null);
 
