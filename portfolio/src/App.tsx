@@ -8,6 +8,8 @@ import Skills from "./pages/SkillsPage.tsx";
 import {Route, BrowserRouter as Router, Routes} from "react-router-dom";
 import Footer from "./components/Footer.tsx";
 import styled from "styled-components";
+import {store} from "./store";
+import {Provider} from "react-redux";
 
 
 const AppContainer = styled.div`
@@ -32,7 +34,7 @@ const App: React.FC = () => {
             <Route path="/" element={<Home />} />
             <Route path="/about" element={<About />} />
             <Route path="/contact" element={<Contact />} />
-            <Route path="/projects" element={<Projects />} />
+            <Route path="/projects" element={<Provider store={store}> <Projects /> </Provider>} />
             <Route path="/skills" element={<Skills />} />
           </Routes>
         </MainContent>

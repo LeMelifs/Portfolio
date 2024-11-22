@@ -1,10 +1,13 @@
 import React, {useMemo, useState} from 'react';
 import styled from 'styled-components';
-import { projects } from '../data/projects';
 import { Project } from '../types/Project';
 import PageContainer from "../components/PageContainer.tsx";
 import Title from "../components/Title.tsx";
 import { FaGithub } from 'react-icons/fa';
+import {RootState} from "../store";
+import {useSelector} from "react-redux";
+import AddProjectForm from "../forms/AddProjectsForm.tsx";
+
 
 const FilterContainer = styled.div`
   display: flex;
@@ -84,8 +87,8 @@ const ModalOverlay = styled.div`
   z-index: 1000;
 `;
 
-const ModalContent = styled.div`
-  background: #fff;
+const ModalContent = styled.div<{ background?: string }>`
+  background: ${({ background }) => background || "#fff"};;
   padding: 40px;
   border-radius: 15px;
   max-width: 500px;
@@ -121,24 +124,50 @@ const GitHubIcon = styled.a`
   }
 `;
 
+const AddButton = styled.button`
+  position: fixed;
+  bottom: 55px;
+  right: 20px;
+  width: 60px;
+  height: 60px;
+  border: none;
+  border-radius: 50%;
+  background-color: #5F9EA0;
+  color: white;
+  font-size: 2rem;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+
+  &:hover {
+    background-color: #008B8B;
+  }
+
+  &:active {
+    transform: scale(0.95);
+  }
+`;
+
 export const Projects = () => {
+  const projects = useSelector((state: RootState) => state.projects.items);
   const [selectedTech, setSelectedTech] = useState<string>('All');
   const [selectedProject, setSelectedProject] = useState<Project | null>(null);
+  const [isFormOpen, setIsFormOpen] = useState(false);
 
   const uniqueTechnologies = useMemo(() => {
     return Array.from(new Set(projects.flatMap((project) => project.technologies)));
-  }, []);
+  }, [projects]);
 
   const filteredProjects = useMemo(() => {
     return projects.filter((project) =>
       selectedTech === 'All' ? true : project.technologies.includes(selectedTech)
     );
-  }, [selectedTech]);
+  }, [selectedTech, projects]);
 
   const handleModalClose = () => setSelectedProject(null);
 
   return (
     <PageContainer>
+
       <FilterContainer>
         <FilterButton
           active={selectedTech === 'All'}
@@ -191,6 +220,17 @@ export const Projects = () => {
             </ModalContent>
         </ModalOverlay>
       )}
+
+      {isFormOpen && (
+        <ModalOverlay onClick={() => setIsFormOpen(false)}>
+          <ModalContent background="#DCDCDC" onClick={(e) => e.stopPropagation()}>
+            <ModalCloseButton onClick={() => setIsFormOpen(false)}>&times;</ModalCloseButton>
+            <AddProjectForm onClose={() => setIsFormOpen(false)} />
+          </ModalContent>
+        </ModalOverlay>
+      )}
+
+      <AddButton onClick={() => setIsFormOpen(true)}>+</AddButton>
     </PageContainer>
   );
 };
