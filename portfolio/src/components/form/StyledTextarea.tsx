@@ -11,7 +11,8 @@ const StyledTextarea = styled.textarea`
   resize: vertical;
   transition: all 0.3s ease;
   min-height: 200px;
-
+  text-align: justify;
+  
   &:focus {
     outline: none;
     border-color: #5F9EA0;
