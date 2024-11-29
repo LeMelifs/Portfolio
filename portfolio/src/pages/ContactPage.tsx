@@ -1,14 +1,14 @@
 import React from "react";
 import { useState } from 'react';
-import {PageContainer} from "../components/PageContainer.tsx";
-import {Card} from "../components/Card.tsx";
-import {Title} from "../components/Title.tsx";
-import {StyledForm} from "../components/form/StyledForm.tsx";
-import {StyledInput} from "../components/form/StyledInput.tsx";
-import {ErrorMessage} from "../components/form/ErrorMessage.tsx";
-import {StyledTextarea} from "../components/form/StyledTextarea.tsx";
-import {StyledButton} from "../components/form/StyledButton.tsx";
-import SuccessMessage from "../components/form/SuccessMessage.tsx";
+import {PageContainer} from "../components/PageContainer";
+import {Card} from "../components/Card";
+import {Title} from "../components/Title";
+import {StyledForm} from "../components/form/StyledForm";
+import {StyledInput} from "../components/form/StyledInput";
+import {ErrorMessage} from "../components/form/ErrorMessage";
+import {StyledTextarea} from "../components/form/StyledTextarea";
+import {StyledButton} from "../components/form/StyledButton";
+import SuccessMessage from "../components/form/SuccessMessage";
 
 
 export const Contact: React.FC = () => {

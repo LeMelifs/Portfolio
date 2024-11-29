@@ -1,6 +1,6 @@
  import { createSlice, PayloadAction } from '@reduxjs/toolkit';
  import { Project } from '../types/Project';
- import { projects as projectsData } from "../data/Projects.tsx";
+ import { projects as projectsData } from "../data/Projects";
 
  interface ProjectsState {
      items: Project[];

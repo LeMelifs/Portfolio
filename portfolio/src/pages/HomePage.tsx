@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 import MyPhoto from '../assets/MyPhoto.jpg';
-import {PageContainer} from "../components/PageContainer.tsx";
+import {PageContainer} from "../components/PageContainer";
 
 const ProfileImage = styled.img`
   width: 370px;
