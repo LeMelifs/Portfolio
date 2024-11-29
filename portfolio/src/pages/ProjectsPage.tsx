@@ -1,13 +1,13 @@
-import React, {useMemo, useState} from 'react';
-import styled from 'styled-components';
-import { Project } from '../types/Project';
-import {PageContainer} from "../components/PageContainer";
-import {Title} from "../components/Title";
-import { FaGithub } from 'react-icons/fa';
-import {RootState} from "../store";
-import {useSelector} from "react-redux";
-import {AddProjectForm} from "../forms/AddProjectsForm";
-
+import React, { useMemo, useState } from "react";
+import styled from "styled-components";
+import { Project } from "../types/Project";
+import { PageContainer } from "../components/PageContainer";
+import { Title } from "../components/Title";
+import { FaGithub } from "react-icons/fa";
+import { RootState } from "../store";
+import { useSelector } from "react-redux";
+import { AddProjectForm } from "../forms/AddProjectsForm";
+import {Modal} from "../components/Modal";
 
 const FilterContainer = styled.div`
   display: flex;
@@ -20,8 +20,8 @@ const FilterButton = styled.button<{ active: boolean }>`
   padding: 8px 16px;
   border: none;
   border-radius: 30px;
-  background-color: ${({active}) => (active ? '#5F9EA0' : '#DCDCDC')};
-  color: ${({active}) => (active ? '#fff' : '#808080')};
+  background-color: ${({ active }) => (active ? "#5F9EA0" : "#DCDCDC")};
+  color: ${({ active }) => (active ? "#fff" : "#808080")};
   cursor: pointer;
   font-size: 1rem;
   font-weight: bold;
@@ -29,7 +29,7 @@ const FilterButton = styled.button<{ active: boolean }>`
   font-family: DejaVu Sans Mono, monospace;
 
   &:hover {
-    background-color: ${({active}) => (active ? '#008B8B' : '#d0d0d0')};
+    background-color: ${({ active }) => (active ? "#008B8B" : "#d0d0d0")};
   }
 `;
 
@@ -42,14 +42,14 @@ const ProjectsGrid = styled.div`
 `;
 
 const ProjectCard = styled.div`
-  background-color: #DCDCDC;
+  background-color: #dcdcdc;
   border: 2px solid #d0d0d0;
   border-radius: 30px;
   padding: 20px;
   box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.1);
   transition: transform 0.3s ease, box-shadow 0.3s ease;
   cursor: pointer;
-  justify-content: space-between; 
+  justify-content: space-between;
   min-height: 120px;
 
   &:hover {
@@ -74,41 +74,29 @@ const ProjectTechnologies = styled.div`
   color: #696969;
 `;
 
-const ModalOverlay = styled.div`
+const AddButton = styled.button`
   position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: rgba(0, 0, 0, 0.5);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  z-index: 1000;
-`;
-
-const ModalContent = styled.div<{ background?: string }>`
-  background: ${({ background }) => background || "#fff"};;
-  padding: 40px;
-  border-radius: 15px;
-  max-width: 500px;
-  width: 90%;
-  position: relative;
-`;
-
-const ModalCloseButton = styled.button`
-  position: absolute;
-  top: 10px;
-  right: 10px;
+  bottom: 55px;
+  right: 20px;
+  width: 60px;
+  height: 60px;
   border: none;
-  background: none;
-  font-size: 1.5rem;
+  border-radius: 50%;
+  background-color: #5f9ea0;
+  color: white;
+  font-size: 2rem;
   cursor: pointer;
+  transition: background-color 0.3s ease;
 
   &:hover {
-    color: #DC143C;
+    background-color: #008b8b;
+  }
+
+  &:active {
+    transform: scale(0.95);
   }
 `;
+
 
 const GitHubIcon = styled.a`
   position: absolute;
@@ -124,32 +112,10 @@ const GitHubIcon = styled.a`
   }
 `;
 
-const AddButton = styled.button`
-  position: fixed;
-  bottom: 55px;
-  right: 20px;
-  width: 60px;
-  height: 60px;
-  border: none;
-  border-radius: 50%;
-  background-color: #5F9EA0;
-  color: white;
-  font-size: 2rem;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
-
-  &:hover {
-    background-color: #008B8B;
-  }
-
-  &:active {
-    transform: scale(0.95);
-  }
-`;
 
 export const Projects = () => {
   const projects = useSelector((state: RootState) => state.projects.items);
-  const [selectedTech, setSelectedTech] = useState<string>('All');
+  const [selectedTech, setSelectedTech] = useState<string>("All");
   const [selectedProject, setSelectedProject] = useState<Project | null>(null);
   const [isFormOpen, setIsFormOpen] = useState(false);
 
@@ -158,8 +124,9 @@ export const Projects = () => {
   }, [projects]);
 
   const filteredProjects = useMemo(() => {
-    return projects.filter((project) =>
-      selectedTech === 'All' ? true : project.technologies.includes(selectedTech)
+    return projects.filter(
+      (project) =>
+        selectedTech === "All" ? true : project.technologies.includes(selectedTech)
     );
   }, [selectedTech, projects]);
 
@@ -167,20 +134,12 @@ export const Projects = () => {
 
   return (
     <PageContainer>
-
       <FilterContainer>
-        <FilterButton
-          active={selectedTech === 'All'}
-          onClick={() => setSelectedTech('All')}
-        >
+        <FilterButton active={selectedTech === "All"} onClick={() => setSelectedTech("All")}>
           All
         </FilterButton>
         {uniqueTechnologies.map((tech) => (
-          <FilterButton
-            key={tech}
-            active={selectedTech === tech}
-            onClick={() => setSelectedTech(tech)}
-          >
+          <FilterButton key={tech} active={selectedTech === tech} onClick={() => setSelectedTech(tech)}>
             {tech}
           </FilterButton>
         ))}
@@ -188,46 +147,33 @@ export const Projects = () => {
 
       <ProjectsGrid>
         {filteredProjects.map((project) => (
-          <ProjectCard
-            key={project.id}
-            onClick={() => setSelectedProject(project)}
-          >
+          <ProjectCard key={project.id} onClick={() => setSelectedProject(project)}>
             <Title>{project.title}</Title>
             <ProjectTechnologies>
-                <span style={{ color: "#5F9EA0" }}>❤ </span>{project.technologies.join(', ')}
+              <span style={{ color: "#5F9EA0" }}>❤ </span>{project.technologies.join(", ")}
             </ProjectTechnologies>
           </ProjectCard>
         ))}
       </ProjectsGrid>
 
       {selectedProject && (
-        <ModalOverlay onClick={handleModalClose}>
-          <ModalContent onClick={(e) => e.stopPropagation()}>
-            <ModalCloseButton onClick={handleModalClose}>&times;</ModalCloseButton>
-            <Title>{selectedProject.title}</Title>
-            <ProjectTechnologies>
-                <span style={{ color: "#5F9EA0" }}>❤ </span>{selectedProject.technologies.join(', ')}
-            </ProjectTechnologies>
-            <ProjectDescription>{selectedProject.description}</ProjectDescription>
-            <br></br>
-            <GitHubIcon
-            href={selectedProject.link}
-            target="_blank"
-            rel="noopener noreferrer"
-            >
+        <Modal onClose={handleModalClose}>
+          <Title>{selectedProject.title}</Title>
+          <ProjectTechnologies>
+            <span style={{ color: "#5F9EA0" }}>❤ </span>{selectedProject.technologies.join(", ")}
+          </ProjectTechnologies>
+          <ProjectDescription>{selectedProject.description}</ProjectDescription>
+          <br />
+          <GitHubIcon href={selectedProject.link} target="_blank" rel="noopener noreferrer">
             <FaGithub />
-            </GitHubIcon>
-            </ModalContent>
-        </ModalOverlay>
+          </GitHubIcon>
+        </Modal>
       )}
 
       {isFormOpen && (
-        <ModalOverlay onClick={() => setIsFormOpen(false)}>
-          <ModalContent background="#DCDCDC" onClick={(e) => e.stopPropagation()}>
-            <ModalCloseButton onClick={() => setIsFormOpen(false)}>&times;</ModalCloseButton>
-            <AddProjectForm onClose={() => setIsFormOpen(false)} />
-          </ModalContent>
-        </ModalOverlay>
+        <Modal onClose={() => setIsFormOpen(false)} background="#DCDCDC">
+          <AddProjectForm onClose={() => setIsFormOpen(false)} />
+        </Modal>
       )}
 
       <AddButton onClick={() => setIsFormOpen(true)}>+</AddButton>
