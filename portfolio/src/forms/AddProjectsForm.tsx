@@ -1,22 +1,19 @@
-import React, {useState} from "react";
-import {useDispatch} from "react-redux";
-import {AppDispatch} from "../store";
-import {Project} from "../types/Project";
-import {addProject} from "../store/projectsSlice";
-import {StyledForm} from "../components/form/StyledForm";
-import {StyledInput} from "../components/form/StyledInput";
-import {StyledButton} from "../components/form/StyledButton";
-import {StyledTextarea} from "../components/form/StyledTextarea";
-import {Title} from "../components/Title";
+import React from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { AppDispatch } from "../store";
+import { Project } from "../types/Project";
+import { addProject } from "../store/projectsSlice";
+import { setTitle, setDescription, setTechnologies, setLink, resetForm } from "../store/projectFormSlice";
+import { StyledForm } from "../components/form/StyledForm";
+import { StyledInput } from "../components/form/StyledInput";
+import { StyledButton } from "../components/form/StyledButton";
+import { StyledTextarea } from "../components/form/StyledTextarea";
+import { Title } from "../components/Title";
 
 export const AddProjectForm: React.FC<{ onClose: () => void }> = ({ onClose }) => {
   const dispatch = useDispatch<AppDispatch>();
 
-  const [title, setTitle] = useState('');
-  const [description, setDescription] = useState('');
-  const [technologies, setTechnologies] = useState('');
-  const [link, setLink] = useState('');
-  const [success, setSuccess] = useState(false);
+  const { title, description, technologies, link } = useSelector((state: any) => state.projectForm);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -30,10 +27,8 @@ export const AddProjectForm: React.FC<{ onClose: () => void }> = ({ onClose }) =
     };
 
     dispatch(addProject(newProject));
-    setSuccess(true);
+    dispatch(resetForm());
     onClose();
-    setSuccess(false);
-
   };
 
   return (
@@ -43,33 +38,33 @@ export const AddProjectForm: React.FC<{ onClose: () => void }> = ({ onClose }) =
         type="text"
         placeholder="*Название"
         value={title}
-        onChange={(e) => setTitle(e.target.value)}
+        onChange={(e) => dispatch(setTitle(e.target.value))}  // Update Redux state on input change
         required
       />
-        <br/>
+      <br/>
       <StyledInput
         type="text"
         placeholder="*Технологии"
         value={technologies}
-        onChange={(e) => setTechnologies(e.target.value)}
+        onChange={(e) => dispatch(setTechnologies(e.target.value))}  // Update Redux state on input change
         required
       />
-        <br/>
+      <br/>
       <StyledInput
         type="url"
         placeholder="*Ссылка на репозиторий"
         value={link}
-        onChange={(e) => setLink(e.target.value)}
+        onChange={(e) => dispatch(setLink(e.target.value))}  // Update Redux state on input change
         required
       />
-        <br/>
+      <br/>
       <StyledTextarea
         type="text"
         placeholder="Описание"
         value={description}
-        onChange={(e) => setDescription(e.target.value)}
+        onChange={(e) => dispatch(setDescription(e.target.value))}  // Update Redux state on input change
       />
-        <br/>
+      <br/>
 
       <StyledButton type="submit">Submit</StyledButton>
     </StyledForm>

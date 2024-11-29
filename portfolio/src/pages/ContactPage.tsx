@@ -1,5 +1,4 @@
 import React from "react";
-import { useState } from 'react';
 import {PageContainer} from "../components/PageContainer";
 import {Card} from "../components/Card";
 import {Title} from "../components/Title";
@@ -9,15 +8,14 @@ import {ErrorMessage} from "../components/form/ErrorMessage";
 import {StyledTextarea} from "../components/form/StyledTextarea";
 import {StyledButton} from "../components/form/StyledButton";
 import SuccessMessage from "../components/form/SuccessMessage";
+import {useDispatch, useSelector} from "react-redux";
+import {AppDispatch, RootState} from "../store";
+import {resetForm, setEmail, setErrors, setIsSubmitted, setMessage, setName} from "../store/contactFormSlice.tsx";
 
 
 export const Contact: React.FC = () => {
-
-    const [name, setName] = useState<string>('');
-    const [email, setEmail] = useState<string>('');
-    const [message, setMessage] = useState<string>('');
-    const [errors, setErrors] = useState<{ email?: string; message?: string }>({});
-    const [isSubmitted, setIsSubmitted] = useState<boolean>(false);
+    const dispatch: AppDispatch = useDispatch();
+    const { name, email, message, errors, isSubmitted } = useSelector((state: RootState) => state.contactForm);
 
     const validateEmail = (email: string): boolean => {
         const emailRegex: RegExp = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -26,7 +24,6 @@ export const Contact: React.FC = () => {
 
     const validateForm = (): boolean => {
         const newErrors: { email?: string; message?: string } = {};
-
         if (!email) {
             newErrors.email = "Поле \"Почта\" обязательно для заполнения.";
         } else if (!validateEmail(email)) {
@@ -37,18 +34,15 @@ export const Contact: React.FC = () => {
             newErrors.message = "Поле \"Сообщение\" обязательно для заполнения.";
         }
 
-        setErrors(newErrors);
+        dispatch(setErrors(newErrors));
         return Object.keys(newErrors).length === 0;
     };
-    
+
     const handleSubmit = (e: React.FormEvent) => {
         if (validateForm()) {
-            setName("");
-            setEmail("");
-            setMessage("");
-            setIsSubmitted(true);
+            dispatch(resetForm());
             setTimeout(() => {
-                setIsSubmitted(false);
+                dispatch(setIsSubmitted(false));
             }, 3000);
         }
         e.preventDefault();
@@ -62,23 +56,23 @@ export const Contact: React.FC = () => {
                 >
                     <StyledInput
                         type="text"
-                        placeholder="Введите имя"
                         value={name}
-                        onChange={(e) => setName(e.target.value)}
+                        placeholder="Введите имя"
+                        onChange={(e) => dispatch(setName(e.target.value))}
                     />
                     <br/>
                     <StyledInput
                         type="email"
-                        placeholder="*Введите почту"
                         value={email}
-                        onChange={(e) => setEmail(e.target.value)}
+                        placeholder="*Введите почту"
+                        onChange={(e) => dispatch(setEmail(e.target.value))}
                     />
                     {errors.email && <ErrorMessage>{errors.email}</ErrorMessage>}
                     <br/>
                     <StyledTextarea
-                        placeholder="*Напишите сообщение"
                         value={message}
-                        onChange={(e) => setMessage(e.target.value)}
+                        placeholder="*Напишите сообщение"
+                        onChange={(e) => dispatch(setMessage(e.target.value))}
                     />
                     {errors.message && <ErrorMessage>{errors.message}</ErrorMessage>}
                     <br/>
