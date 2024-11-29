@@ -3,13 +3,13 @@ import {useDispatch} from "react-redux";
 import {AppDispatch} from "../store";
 import {Project} from "../types/Project.tsx";
 import {addProject} from "../store/projectsSlice.tsx";
-import StyledForm from "../components/form/StyledForm.tsx";
-import StyledInput from "../components/form/StyledInput.tsx";
-import StyledButton from "../components/form/StyledButton.tsx";
-import StyledTextarea from "../components/form/StyledTextarea.tsx";
-import Title from "../components/Title.tsx";
+import {StyledForm} from "../components/form/StyledForm.tsx";
+import {StyledInput} from "../components/form/StyledInput.tsx";
+import {StyledButton} from "../components/form/StyledButton.tsx";
+import {StyledTextarea} from "../components/form/StyledTextarea.tsx";
+import {Title} from "../components/Title.tsx";
 
-const AddProjectForm: React.FC<{ onClose: () => void }> = ({ onClose }) => {
+export const AddProjectForm: React.FC<{ onClose: () => void }> = ({ onClose }) => {
   const dispatch = useDispatch<AppDispatch>();
 
   const [title, setTitle] = useState('');
@@ -75,5 +75,3 @@ const AddProjectForm: React.FC<{ onClose: () => void }> = ({ onClose }) => {
     </StyledForm>
   );
 };
-
-export default AddProjectForm;

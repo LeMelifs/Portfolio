@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-const Subtitle = styled.p`
+export const Subtitle = styled.p`
   font-size: 2rem;
   letter-spacing: 0.1rem;
   margin-top: -10px;
@@ -9,5 +9,3 @@ const Subtitle = styled.p`
   color: #808080;
   font-family: Brush Script MT, Brush Script Std, cursive;
 `
-
-export default Subtitle;

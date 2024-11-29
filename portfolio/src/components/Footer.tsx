@@ -37,7 +37,7 @@ const IconLink = styled.a`
   }
 `;
 
-const Footer: React.FC = () => {
+export const Footer: React.FC = () => {
   return (
     <FooterContainer>
       <FooterText>© 2024 LeMelifs</FooterText>
@@ -55,5 +55,3 @@ const Footer: React.FC = () => {
     </FooterContainer>
   );
 };
-
-export default Footer;

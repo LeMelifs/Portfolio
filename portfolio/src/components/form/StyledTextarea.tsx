@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-const StyledTextarea = styled.textarea`
+export const StyledTextarea = styled.textarea`
   width: 80%;
   padding: 12px;
   border: 1px solid #d0d0d0;
@@ -18,5 +18,3 @@ const StyledTextarea = styled.textarea`
     border-color: #5F9EA0;
   }
 `;
-
-export default StyledTextarea;

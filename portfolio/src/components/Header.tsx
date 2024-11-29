@@ -46,7 +46,7 @@ const StyledLink = styled(Link)`
   }
 `;
 
-const Header: React.FC = () => {
+export const Header: React.FC = () => {
   return (
     <HeaderContainer>
       <Logo to={{ pathname: "/" }}>LeMelifs</Logo>
@@ -59,6 +59,3 @@ const Header: React.FC = () => {
     </HeaderContainer>
   );
 };
-
-
-export default Header;

@@ -1,17 +1,17 @@
 import React from "react";
 import { useState } from 'react';
-import PageContainer from "../components/PageContainer.tsx";
-import Card from "../components/Card.tsx";
-import Title from "../components/Title.tsx";
-import StyledForm from "../components/form/StyledForm.tsx";
-import StyledInput from "../components/form/StyledInput.tsx";
-import ErrorMessage from "../components/form/ErrorMessage.tsx";
-import StyledTextarea from "../components/form/StyledTextarea.tsx";
-import StyledButton from "../components/form/StyledButton.tsx";
+import {PageContainer} from "../components/PageContainer.tsx";
+import {Card} from "../components/Card.tsx";
+import {Title} from "../components/Title.tsx";
+import {StyledForm} from "../components/form/StyledForm.tsx";
+import {StyledInput} from "../components/form/StyledInput.tsx";
+import {ErrorMessage} from "../components/form/ErrorMessage.tsx";
+import {StyledTextarea} from "../components/form/StyledTextarea.tsx";
+import {StyledButton} from "../components/form/StyledButton.tsx";
 import SuccessMessage from "../components/form/SuccessMessage.tsx";
 
 
-const Contact: React.FC = () => {
+export const Contact: React.FC = () => {
 
     const [name, setName] = useState<string>('');
     const [email, setEmail] = useState<string>('');
@@ -89,5 +89,3 @@ const Contact: React.FC = () => {
         </PageContainer>
     );
 };
-
-export default Contact;

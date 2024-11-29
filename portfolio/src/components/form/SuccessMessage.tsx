@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-const SuccessMessage = styled.p`
+export const SuccessMessage = styled.p`
   color: #696969;
   font-size: 0.8rem;
   width: 100%;

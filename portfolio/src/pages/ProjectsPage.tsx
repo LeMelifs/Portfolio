@@ -1,12 +1,12 @@
 import React, {useMemo, useState} from 'react';
 import styled from 'styled-components';
 import { Project } from '../types/Project';
-import PageContainer from "../components/PageContainer.tsx";
-import Title from "../components/Title.tsx";
+import {PageContainer} from "../components/PageContainer.tsx";
+import {Title} from "../components/Title.tsx";
 import { FaGithub } from 'react-icons/fa';
 import {RootState} from "../store";
 import {useSelector} from "react-redux";
-import AddProjectForm from "../forms/AddProjectsForm.tsx";
+import {AddProjectForm} from "../forms/AddProjectsForm.tsx";
 
 
 const FilterContainer = styled.div`
@@ -234,5 +234,3 @@ export const Projects = () => {
     </PageContainer>
   );
 };
-
-export default Projects;

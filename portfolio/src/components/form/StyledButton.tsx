@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-const StyledButton = styled.button`
+export const StyledButton = styled.button`
   width: 30%;
   padding: 5px;
   margin-top: 10px;
@@ -24,5 +24,3 @@ const StyledButton = styled.button`
     transform: scale(0.95);
   }
 `;
-
-export default StyledButton;

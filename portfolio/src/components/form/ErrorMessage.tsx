@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-const ErrorMessage = styled.p`
+export const ErrorMessage = styled.p`
   color: #DC143C;
   font-size: 0.8rem;
   margin: 5px 0 0;
@@ -8,5 +8,3 @@ const ErrorMessage = styled.p`
   text-align: left;
   font-family: DejaVu Sans Mono, monospace;
 `;
-
-export default ErrorMessage;

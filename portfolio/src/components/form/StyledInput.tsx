@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-const StyledInput = styled.input`
+export const StyledInput = styled.input`
   width: 80%;
   padding: 12px;
   border: 1px solid #d0d0d0;
@@ -15,5 +15,3 @@ const StyledInput = styled.input`
     border-color: #5F9EA0;
   }
 `;
-
-export default StyledInput;
