@@ -1,17 +1,23 @@
 import axios from 'axios';
 import {Project} from '../types/Project';
 
-const GITHUB_API_URL = 'https://api.github.com';
+
+const apiClient = axios.create({
+  baseURL: 'https://api.github.com',
+  timeout: 10000,
+  headers: { 'Content-Type': 'application/json' }
+});
+
 
 export const fetchRepos = async (username: string): Promise<Project[]> => {
   try {
-    const response = await axios.get(`${GITHUB_API_URL}/users/${username}/repos`);
-    return response.data.map((repo: any) => ({
-      id: repo.id,
-      title: repo.name,
-      description: repo.description || 'Описание отсутствует',
-      technologies: repo.language ? [repo.language] : [],
-      link: repo.html_url
+    const response = await apiClient.get<Project[]>(`/users/${username}/repos`);
+    return response.data.map((project: Project) => ({
+      id: project.id,
+      title: project.name,
+      description: project.description || 'Описание отсутствует',
+      technologies: project.language ? [project.language] : [],
+      link: project.html_url
     }));
   } catch (error) {
     console.error('Ошибка при выполнении запроса:', error);
