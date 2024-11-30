@@ -19,6 +19,7 @@ const FooterText = styled.p`
   font-family: DejaVu Sans Mono, monospace;
   color: #808080;
   margin: 0;
+  font-weight: bold;
 `;
 
 const IconLinks = styled.div`
@@ -36,7 +37,7 @@ const IconLink = styled.a`
   }
 `;
 
-const Footer: React.FC = () => {
+export const Footer: React.FC = () => {
   return (
     <FooterContainer>
       <FooterText>© 2024 LeMelifs</FooterText>
@@ -54,5 +55,3 @@ const Footer: React.FC = () => {
     </FooterContainer>
   );
 };
-
-export default Footer;

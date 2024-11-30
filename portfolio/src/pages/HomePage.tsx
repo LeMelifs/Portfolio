@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 import MyPhoto from '../assets/MyPhoto.jpg';
-import PageContainer from "../components/PageContainer.tsx";
+import {PageContainer} from "../components/PageContainer";
 
 const ProfileImage = styled.img`
   width: 370px;
@@ -29,7 +29,7 @@ const Info = styled.p`
   font-family: Courier New, monospace;
 `
 
-const Home: React.FC = () => {
+export const Home: React.FC = () => {
   return (
     <PageContainer>
       <ProfileImage src={MyPhoto}  />
@@ -45,6 +45,3 @@ const Home: React.FC = () => {
     </PageContainer>
   );
 };
-
-
-export default Home;

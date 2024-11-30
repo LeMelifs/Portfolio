@@ -1,13 +1,15 @@
-import Header from "./components/Header.tsx";
+import {Header} from "./components/Header";
 import React from "react";
-import Home from "./pages/HomePage.tsx";
-import About from "./pages/AboutPage.tsx";
-import Contact from "./pages/ContactPage.tsx";
-import Projects from "./pages/ProjectsPage.tsx";
-import Skills from "./pages/SkillsPage.tsx";
+import {Home} from "./pages/HomePage";
+import {About} from "./pages/AboutPage";
+import {Contact} from "./pages/ContactPage";
+import {Projects} from "./pages/ProjectsPage";
+import {Skills} from "./pages/SkillsPage";
 import {Route, BrowserRouter as Router, Routes} from "react-router-dom";
-import Footer from "./components/Footer.tsx";
+import {Footer} from "./components/Footer";
 import styled from "styled-components";
+import {store} from "./store";
+import {Provider} from "react-redux";
 
 
 const AppContainer = styled.div`
@@ -22,24 +24,24 @@ const MainContent = styled.main`
   flex-direction: column;
 `;
 
-const App: React.FC = () => {
+export const App: React.FC = () => {
   return (
-    <Router>
-      <AppContainer>
-        <Header />
-        <MainContent>
-          <Routes>
-            <Route path="/" element={<Home />} />
-            <Route path="/about" element={<About />} />
-            <Route path="/contact" element={<Contact />} />
-            <Route path="/projects" element={<Projects />} />
-            <Route path="/skills" element={<Skills />} />
-          </Routes>
-        </MainContent>
-        <Footer />
-      </AppContainer>
-    </Router>
+    <Provider store={store}>
+      <Router>
+        <AppContainer>
+          <Header />
+          <MainContent>
+            <Routes>
+              <Route path="/" element={<Home />} />
+              <Route path="/about" element={<About />} />
+              <Route path="/contact" element={<Contact />} />
+              <Route path="/projects" element={<Projects />} />
+              <Route path="/skills" element={<Skills />} />
+            </Routes>
+          </MainContent>
+          <Footer />
+        </AppContainer>
+      </Router>
+    </Provider>
   );
 };
-
-export default App;

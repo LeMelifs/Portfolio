@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-const Title = styled.p`
+export const Title = styled.p`
   font-size: 2.5rem;
   text-align: center;
   text-decoration: underline 2px #5F9EA0;
@@ -10,5 +10,3 @@ const Title = styled.p`
   color: #808080;
   font-family: Brush Script MT, Brush Script Std, cursive;
 `
-
-export default Title;

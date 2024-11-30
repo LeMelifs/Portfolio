@@ -1,11 +1,11 @@
 import React from "react";
-import PageContainer from "../components/PageContainer.tsx";
-import Card from "../components/Card.tsx";
-import Title from "../components/Title.tsx";
-import Subtitle from "../components/Subtitle.tsx";
-import Text from "../components/Text.tsx";
+import {PageContainer} from "../components/PageContainer";
+import {Card} from "../components/Card";
+import {Title} from "../components/Title";
+import {Subtitle} from "../components/Subtitle";
+import {Text} from "../components/Text";
 
-const About: React.FC = () => {
+export const About: React.FC = () => {
   return (
       <PageContainer>
         <Card>
@@ -30,5 +30,3 @@ const About: React.FC = () => {
       </PageContainer>
   );
 };
-
-export default About;
