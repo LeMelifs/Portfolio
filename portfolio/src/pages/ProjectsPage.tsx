@@ -1,13 +1,16 @@
-import React, { useMemo, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import styled from "styled-components";
 import { Project } from "../types/Project";
 import { PageContainer } from "../components/PageContainer";
 import { Title } from "../components/Title";
-import { FaGithub } from "react-icons/fa";
-import { RootState } from "../store";
-import { useSelector } from "react-redux";
+import {FaGithub, FaSyncAlt} from "react-icons/fa";
+import {AppDispatch, RootState} from "../store";
+import { useSelector, useDispatch } from "react-redux";
 import { AddProjectForm } from "../forms/AddProjectsForm";
-import {Modal} from "../components/Modal";
+import { Modal } from "../components/Modal";
+import { fetchProjectsFromGitHub } from "../store/projectsSlice";
+import {BounceLoader, ClipLoader} from "react-spinners";
+import {BiRefresh} from "react-icons/bi";
 
 const FilterContainer = styled.div`
   display: flex;
@@ -60,6 +63,7 @@ const ProjectCard = styled.div`
 
 const ProjectDescription = styled.p`
   font-size: 0.9rem;
+  margin-bottom: 40px;
   text-align: justify;
   color: black;
   font-family: Courier New, monospace;
@@ -97,24 +101,57 @@ const AddButton = styled.button`
   }
 `;
 
-
 const GitHubIcon = styled.a`
   position: absolute;
   bottom: 10px;
-  right: 37px;
+  right: 20px;
   font-size: 2rem;
-  color: #5F9EA0;
+  color: #5f9ea0;
   transition: color 0.3s ease, transform 0.2s ease;
 
   &:hover {
-    color: #008B8B;
+    color: #008b8b;
     transform: scale(1.1);
   }
 `;
 
+const ErrorMessage = styled.div`
+  text-align: center;
+  color: black;
+  font-size: 1rem;
+  font-weight: lighter;
+  margin-top: 20px;
+  font-family: Courier New, monospace;
+`;
+
+const ReloadButton = styled.button`
+  position: fixed;
+  bottom: 55px;
+  right: 90px; 
+  width: 60px;
+  height: 60px;
+  border: none;
+  border-radius: 50%;
+  background-color: #d0d0d0;
+  color: white;
+  font-size: 1.1rem;
+  padding-top: 6px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+
+  &:hover {
+    background-color: #808080;
+  }
+
+  &:active {
+    transform: scale(0.95);
+  }
+`;
 
 export const Projects = () => {
+  const dispatch = useDispatch<AppDispatch>();
   const projects = useSelector((state: RootState) => state.projects.items);
+  const status = useSelector((state: RootState) => state.projects.status);
   const [selectedTech, setSelectedTech] = useState<string>("All");
   const [selectedProject, setSelectedProject] = useState<Project | null>(null);
   const [isFormOpen, setIsFormOpen] = useState(false);
@@ -129,6 +166,16 @@ export const Projects = () => {
         selectedTech === "All" ? true : project.technologies.includes(selectedTech)
     );
   }, [selectedTech, projects]);
+
+  useEffect(() => {
+    if (status === 'idle') {
+      dispatch(fetchProjectsFromGitHub('LeMelifs'));
+    }
+  }, [dispatch, status]);
+
+  const handleReload = () => {
+    dispatch(fetchProjectsFromGitHub('LeMelifs'));
+  };
 
   const handleModalClose = () => setSelectedProject(null);
 
@@ -145,16 +192,22 @@ export const Projects = () => {
         ))}
       </FilterContainer>
 
-      <ProjectsGrid>
-        {filteredProjects.map((project) => (
-          <ProjectCard key={project.id} onClick={() => setSelectedProject(project)}>
-            <Title>{project.title}</Title>
-            <ProjectTechnologies>
-              <span style={{ color: "#5F9EA0" }}>❤ </span>{project.technologies.join(", ")}
-            </ProjectTechnologies>
-          </ProjectCard>
-        ))}
-      </ProjectsGrid>
+      {status === 'loading' ? (
+        <ClipLoader size={50} color='#DCDCDC' />
+      ) : status === 'failed' ? (
+        <ErrorMessage>Не удалось загрузить проекты. Попробуйте снова позже.</ErrorMessage>
+      ) : (
+        <ProjectsGrid>
+          {filteredProjects.map((project) => (
+            <ProjectCard key={project.id} onClick={() => setSelectedProject(project)}>
+              <Title>{project.title}</Title>
+              <ProjectTechnologies>
+                <span style={{ color: "#5F9EA0" }}>❤ </span>{project.technologies.join(", ")}
+              </ProjectTechnologies>
+            </ProjectCard>
+          ))}
+        </ProjectsGrid>
+      )}
 
       {selectedProject && (
         <Modal onClose={handleModalClose}>
@@ -165,18 +218,21 @@ export const Projects = () => {
           <ProjectDescription>{selectedProject.description}</ProjectDescription>
           <br />
           <GitHubIcon href={selectedProject.link} target="_blank" rel="noopener noreferrer">
-            <FaGithub />
+            <BiRefresh />
           </GitHubIcon>
         </Modal>
       )}
 
       {isFormOpen && (
-        <Modal onClose={() => setIsFormOpen(false)} background="#DCDCDC">
-          <AddProjectForm onClose={() => setIsFormOpen(false)} />
+        <Modal background="#DCDCDC" onClose={() => setIsFormOpen(false)}>
+          <AddProjectForm />
         </Modal>
       )}
 
       <AddButton onClick={() => setIsFormOpen(true)}>+</AddButton>
+      <ReloadButton onClick={handleReload}>
+        <FaSyncAlt />
+      </ReloadButton>
     </PageContainer>
   );
 };
