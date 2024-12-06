@@ -23,4 +23,13 @@ export const StyledButton = styled.button`
   &:active {
     transform: scale(0.95);
   }
+  
+  @media(max-width: 700px) {
+    font-size: 1.3rem;
+    border: solid white 1px;
+  }
+  
+  @media(max-width: 530px) {
+    width: 110px;
+  }
 `;
