@@ -3,10 +3,7 @@ import styled from "styled-components";
 export const Text = styled.p<{ theme: string }>`
   font-size: 1.1rem;
   text-align: justify;
-  margin-top: -20px;
-  margin-left: 60px;
-  margin-right: 60px;
-  margin-bottom: 25px;
+  margin: -20px 60px 25px;
   font-family: "Courier New", monospace;
   color: ${({ theme }) => (theme === "light" ? "#333" : "#e0e0e0")};
   
