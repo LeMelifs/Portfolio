@@ -1,50 +1,78 @@
-# React + TypeScript + Vite
+# Portfolio
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+## Описание проекта
 
-Currently, two official plugins are available:
+Это персональное портфолио, созданное с использованием React и Vite. Проект демонстрирует навыки разработки на фронтенде, включая работу с библиотеками и технологиями, такими как React, TypeScript, Redux и styled-components.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## Инструкция: Как запустить проект
 
-## Expanding the ESLint configuration
+### 1. Установите Node.js и npm
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+Для того чтобы начать работу с проектом, необходимо установить [Node.js](https://nodejs.org/) и npm (пакетный менеджер для JavaScript).
 
-- Configure the top-level `parserOptions` property like this:
+- Скачайте и установите Node.js, следуя инструкциям на официальной странице.
+- Проверьте, что Node.js и npm успешно установлены, выполнив следующие команды в терминале:
 
-```js
-export default tseslint.config({
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
+```bash
+node -v
+npm -v
 ```
 
-- Replace `tseslint.configs.recommended` to `tseslint.configs.recommendedTypeChecked` or `tseslint.configs.strictTypeChecked`
-- Optionally add `...tseslint.configs.stylisticTypeChecked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and update the config:
+### 2. Cклонируйте репозиторий
 
-```js
-// eslint.config.js
-import react from 'eslint-plugin-react'
+Склонируйте репозиторий с проектом на свой локальный компьютер, используя команду:
 
-export default tseslint.config({
-  // Set the react version
-  settings: { react: { version: '18.3' } },
-  plugins: {
-    // Add the react plugin
-    react,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended rules
-    ...react.configs.recommended.rules,
-    ...react.configs['jsx-runtime'].rules,
-  },
-})
+```bash
+git clone https://github.com/LeMelifs/portfolio.git
 ```
+
+### 3. Перейдите в директорию проекта
+
+После того как репозиторий был склонирован, откройте терминал и перейдите в папку с проектом:
+
+```bash
+cd portfolio
+```
+
+### 4. Установите зависимости
+
+Проект использует пакетный менеджер npm для управления зависимостями. Чтобы установить все необходимые библиотеки, выполните команду:
+
+```bash
+npm install
+```
+
+Эта команда загрузит все пакеты, указанные в package.json, и установит их.
+
+### 5. Запустите проект в режиме разработки
+
+После установки зависимостей вы можете запустить проект в режиме разработки, используя команду:
+
+```bash
+npm run dev
+```
+
+Проект будет запущен на локальном сервере. Обычно это будет http://localhost:5173. Откройте этот адрес в браузере, чтобы увидеть ваше приложение в действии.
+
+### 6. Остановка сервера
+
+Чтобы остановить сервер разработки, вернитесь в терминал и нажмите Ctrl + C.
+
+## Структура проекта
+
+Вот краткое описание ключевых папок и файлов в проекте:
+
+    src/ — основная папка с исходным кодом;
+    components/ — компоненты React, такие как Header, Footer, и другие части страницы;
+    pages/ — страницы сайта;
+    assets/ — папка, в которой лежат ассеты проекта (картинки, шрифты и пр.);
+    data/ — данные для сайта;
+    forms/ — формы;
+    context/ — контекст (управление глобальными данными);
+    services/ — сервисы;
+    store/ — менеджер состояний (Redux) и его компоненты;
+    types/ — пользовательские типы;
+    App.tsx — основной компонент приложения;
+    main.tsx — точка входа приложения;
+    package.json — файл с зависимостями и скриптами для npm;
+    vite.config.ts — конфигурация для сборщика Vite.
