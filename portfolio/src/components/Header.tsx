@@ -11,7 +11,7 @@ const HeaderContainer = styled.header<{ theme: string }>`
   padding: 0.7rem 2rem;
   border-radius: 5px;
   background-color: ${({ theme }) => (theme === "light" ? "#DCDCDC" : "#333")};
-  border-bottom: 2px solid #d0d0d0;
+  border-bottom: 2px solid ${({ theme }) => (theme === "light" ? "#d0d0d0" : "#444")};
 
   @media (max-width: 768px) {
     padding: 0.5rem 1.5rem;
@@ -72,7 +72,7 @@ const ThemeSwitcher = styled(motion.div)<{ theme: string }>`
   width: 41px;
   height: 21px;
   border-radius: 15px;
-  background-color: ${({ theme }) => (theme === "light" ? "#fff" : "#000")};
+  background-color: ${({ theme }) => (theme === "light" ? "#fff" : "#262626")};
   display: flex;
   align-items: center;
   padding: 2px;
@@ -124,7 +124,7 @@ export const Header: React.FC = () => {
         <SwitchCircle
           theme={theme}
           animate={{
-            left: theme === "light" ? "2px" : "23px",
+            left: theme === "light" ? "1px" : "23px",
           }}
           transition={{ type: "spring", stiffness: 300 }}
         />
