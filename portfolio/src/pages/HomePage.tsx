@@ -43,7 +43,7 @@ const Name = styled(motion.p)<{ theme: string }>`
 
 const Info = styled(motion.p)<{ theme: string }>`
   font-size: 1.1rem;
-  width: 700px;
+  width: 60vw;
   text-align: justify;
   margin-top: -20px;
   font-family: Courier New, monospace;
