@@ -10,6 +10,7 @@ import {Footer} from "./components/Footer";
 import styled from "styled-components";
 import {store} from "./store";
 import {Provider} from "react-redux";
+import {ThemeProvider} from "./context/ThemeContext";
 
 
 const AppContainer = styled.div`
@@ -26,6 +27,7 @@ const MainContent = styled.main`
 
 export const App: React.FC = () => {
   return (
+  <ThemeProvider>
     <Provider store={store}>
       <Router>
         <AppContainer>
@@ -43,5 +45,6 @@ export const App: React.FC = () => {
         </AppContainer>
       </Router>
     </Provider>
+  </ThemeProvider>
   );
 };
