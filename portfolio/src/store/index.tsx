@@ -11,9 +11,5 @@
      },
  });
 
- store.subscribe(() => {
-    localStorage.setItem('projects', JSON.stringify(store.getState().projects.items));
- })
-
  export type RootState = ReturnType<typeof store.getState>;
  export type AppDispatch = typeof store.dispatch;
